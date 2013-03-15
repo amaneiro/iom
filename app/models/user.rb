@@ -156,11 +156,4 @@ class User < ActiveRecord::Base
   end
   private :generate_token
 
-  def update_last_login
-    self.last_login                             = Time.now
-    self.six_months_since_last_login_alert_sent = false
-    self.save if persisted?
-  end
-  private :update_last_login
-
 end
