@@ -26,6 +26,10 @@ textarea {border:0px;}
     font-style: normal;
 }
 
+.hidden {
+  display: none;
+}
+
 /*The next is neccesary to fix properly the content scrollable*/
 div.wrapper {float:left; margin:0; padding:0;}
 
