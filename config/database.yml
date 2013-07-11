@@ -2,9 +2,9 @@ development:
   adapter: postgresql
   template: template_postgis
   encoding: unicode
-  host: localhost
+  host:
   database: iom_development
-  username: postgres
+  username:
   password:
 
 test:
@@ -12,7 +12,7 @@ test:
   template: template_postgis
   encoding: unicode
   database: iom_test
-  username: postgres
+  username:
   password:
 
 staging:
@@ -20,7 +20,7 @@ staging:
   template: template_postgis
   encoding: unicode
   database: iom_production
-  username: postgres
+  username:
   password:
 
 production:
@@ -28,5 +28,5 @@ production:
   template: template_postgis
   encoding: unicode
   database: iom_production
-  username: postgres
+  username:
   password:

@@ -7,6 +7,6 @@ tmp/**/*
 public/system
 bin/
 install/
-config/app_config.yml
-config/database.yml
+# config/app_config.yml
+# config/database.yml
 public/stylesheets/**/*.css
