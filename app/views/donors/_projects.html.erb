@@ -1,0 +1,41 @@
+<% unless @projects.empty? %>
+  <ul>
+  <% @projects.each_with_index do |project,index| %>
+    <li class="<%= (index%2==0) ? 'even' : 'odd' %>">
+      <div class="project_name">
+        <h3><%= link_to(truncate(project['project_name'], :length=>65), project_path(project['project_id'])) %></h3>
+        <p>
+          <%= subtitle(project, @site) %>
+        </p>
+      </div>
+      <div class="project_places">
+        <p>
+        <% if @site.world_wide_context? %>
+          <% unless project['countries'].blank? %>
+            <% if project['countries'].split('|').delete_if{ |e| e.blank? }.size > 3 %>
+              <%= project['countries'].split('|').delete_if{ |e| e.blank? }[0..3].join(', ') %> and <%= project['countries'].split('|').delete_if{ |e| e.blank? }.size - 3 %> more
+            <% else %>
+              <%= project['countries'].split('|').delete_if{ |e| e.blank? }.to_sentence(:last_word_connector => ' and ') %>
+            <% end %>
+          <% end %>
+        <% else %>
+          <% unless project['regions'].blank? %>
+            <% if project['regions'].split('|').delete_if{ |e| e.blank? }.size > 3 %>
+              <%= project['regions'].split('|').delete_if{ |e| e.blank? }[0..3].join(', ') %> and <%= project['regions'].split('|').delete_if{ |e| e.blank? }.size - 3 %> more
+            <% else %>
+              <%= project['regions'].split('|').delete_if{ |e| e.blank? }.to_sentence(:last_word_connector => ' and ') %>
+            <% end %>
+          <% end %>
+        <% end %>
+        </p>
+      </div>
+    </li>
+  <% end %>
+  </ul>
+<% else %>
+  <ul>
+    <li class="even">
+      <p class="no_results">No projects were found for this donor</p>
+    </li>
+  </ul>
+<% end %>

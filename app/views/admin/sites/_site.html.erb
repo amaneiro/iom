@@ -1,0 +1,52 @@
+<div class="block first">
+  <div class="top"></div>
+  <div class="med information">
+    <h2 class="museo_sans"><%= link_to(site.name, edit_admin_site_path(site)) %></h2>
+    <ul>
+      <li>
+        <label>PROJECTS INCLUDED</label>
+        <p class="museo_sans"><%= site.total_projects %></p>
+      </li>
+      <li>
+        <label>ORGANIZATIONS COMMITTED</label>
+        <p class="museo_sans"><%= site.organizations.size %></p>
+      </li>
+      <% if site.google_analytics_id? %>
+        <li>
+          <label>VISITS TO THE SITE</label>
+          <p class="museo_sans"><%= number_with_delimiter(site.visits.to_i) %></p>
+        </li>
+        <li>
+          <label>LAST 7 DAYS</label>
+          <p class="museo_sans"><%= number_with_delimiter(site.visits_last_week.to_i) %></p>
+        </li>
+      <% end %>
+    </ul>
+    <div class="info">
+      <div class="left">
+        <% if site.geographic_context_country_id? %>
+          <p>Limited to <strong><%= site.geographic_context_country.name %> country</strong></p>
+        <% elsif site.geographic_context_region_id? %>
+          <p>Limited to <strong><%= site.region.name %> region</strong></p>
+        <% end %>
+        <% if site.published? %>
+        <p>Available <%= link_to('here', url(site)) %></p>
+        <% else %>
+        <p>Browse the private version <%= link_to('here', root_path(:force_site_id => site.id)) %></p>
+        <% end %>
+      </div>
+      <div class="right_graph">
+        <img src="http://chart.apis.google.com/chart?chs=590x120&cht=ls&chco=333333&chd=t:<%= site.last_visits(30) %>|<%= site.last_visits(30) %>&chls=2&chma=6,6,6,6&chm=o,333333,0,-1,12|o,FFFFFF,0,-1,8" width="590" height="120" style="border-bottom:1px solid #CCCCCC" alt="Graph">
+      </div>
+      <p></p>
+    </div>
+  </div>
+  <div class="bottom_grey">
+    <div id="site_<%= site.id %>">
+      <%= link_to((site.published? ? 'Published' : 'Not published'), toggle_status_admin_site_path(site), :method => :post,:remote => true,:class => (site.published? ? 'published' : 'not_published')) %>
+    </div>
+    <a href="<%= edit_admin_site_path(site) %>">Manage this site</a>
+  </div>
+</div>
+
+
