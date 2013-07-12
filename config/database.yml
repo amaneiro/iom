@@ -28,6 +28,6 @@ production:
   adapter: postgresql
   template: template_postgis
   encoding: unicode
-  database: iom_production
+  database: iom_development
   username: <%= ENV["OPENSHIFT_POSTGRESQL_DB_USERNAME"] %>
   password:
