@@ -71,7 +71,8 @@ class Site < ActiveRecord::Base
                                         :format => 'jpg'
                                       }
                                     },
-                            :url => "/system/:attachment/:id/:style.:extension"
+                            :url => "/images/sites/:basename.:extension",
+                            :path => ":rails_root/public/images/sites/:basename.:extension"
 
   has_attached_file :aid_map_image, :styles => {
                                       :small => {
@@ -86,8 +87,9 @@ class Site < ActiveRecord::Base
                                     :convert_options => {
                                       :all => "-quality 90"
                                     },
-                                    :url => "/system/:attachment/:id/:style.:extension",
-                                    :default_url => "/images/no_aid_map_image_huge.jpg"
+                                    :url => "/images/sites/:basename.:extension",
+                                    :default_url => "/images/no_aid_map_image_huge.jpg",
+                                    :path => ":rails_root/public/images/sites/:basename.:extension"
 
   scope :published, where(:status => true)
   scope :draft,     where(:status => false)
