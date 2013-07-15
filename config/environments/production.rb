@@ -25,7 +25,7 @@ Iom::Application.configure do
   # config.logger = SyslogLogger.new
 
   # Use a different cache store in production
-  config.cache_store = :memory_store, :size => 64.megabytes
+  config.cache_store = :memory_store
 
   # Disable Rails's static asset server
   # In production, Apache or nginx will already do this
