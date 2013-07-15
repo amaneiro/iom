@@ -88,7 +88,7 @@ class Site < ActiveRecord::Base
                                     },
                                     :url => "/system/:attachment/:id/:style.:extension",
                                     :default_url => "/images/no_aid_map_image_huge.jpg",
-                                    :path => "/public/images/sites/haiti_img_example.jpg"
+                                    :path => ":rails_root/public/images/sites/haiti_img_example.jpg"
 
   scope :published, where(:status => true)
   scope :draft,     where(:status => false)
