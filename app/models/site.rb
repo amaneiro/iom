@@ -71,7 +71,8 @@ class Site < ActiveRecord::Base
                                         :format => 'jpg'
                                       }
                                     },
-                            :url => "/system/:attachment/:id/:style.:extension"
+                            :url => "/system/:attachment/:id/:style.:extension",
+                            :path => ":rails_root/public/images/sites/haiti_img_example.jpg"
 
   has_attached_file :aid_map_image, :styles => {
                                       :small => {
