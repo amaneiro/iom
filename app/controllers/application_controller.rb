@@ -48,7 +48,7 @@ class ApplicationController < ActionController::Base
     def set_site
       # HACK to load always a site instead of the main site
       # Should be select here the site we want to load, instead of using first one
-      unless @site = Site.published.where(:id => 1)
+      unless @site = Site.published.first
         raise ActiveRecord::RecordNotFound
       end
 

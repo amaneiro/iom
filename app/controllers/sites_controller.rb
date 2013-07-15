@@ -3,12 +3,9 @@ class SitesController < ApplicationController
   layout :sites_layout
 
   def home
-    logger.error "home method at sites_controller"
     if @site
-      logger.error "site_home"
       site_home
     else
-      logger.error "general_home"
       general_home
     end
   end
