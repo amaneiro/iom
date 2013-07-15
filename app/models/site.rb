@@ -71,8 +71,7 @@ class Site < ActiveRecord::Base
                                         :format => 'jpg'
                                       }
                                     },
-                            :url => "/system/:attachment/:id/:style.:extension",
-                            :path => ":rails_root/public/images/sites/haiti_img_example.jpg"
+                            :url => "/system/:attachment/:id/:style.:extension"
 
   has_attached_file :aid_map_image, :styles => {
                                       :small => {
@@ -88,8 +87,7 @@ class Site < ActiveRecord::Base
                                       :all => "-quality 90"
                                     },
                                     :url => "/system/:attachment/:id/:style.:extension",
-                                    :default_url => "/images/no_aid_map_image_huge.jpg",
-                                    :path => ":rails_root/public/images/sites/haiti_img_example.jpg"
+                                    :default_url => "/images/no_aid_map_image_huge.jpg"
 
   scope :published, where(:status => true)
   scope :draft,     where(:status => false)
