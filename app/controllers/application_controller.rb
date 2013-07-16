@@ -56,6 +56,13 @@ class ApplicationController < ActionController::Base
         return
       end
 
+      # HACK: load Bolivia site instead of main cover, while we have only 1 site.
+      #
+      # Future Easter Egg: right now, if user provides force_site_id param, she will be shown the site requested.
+      #                    Considering redirect to vizzuality webpage, as a tribute fot its valuable work.
+      @site = Site.where('LOWER(name) = ?', "bolivia").first
+      return
+
       # If the request host isn't the main_site_host, it should be the host from a site
       if request.host != main_site_host
         unless @site = Site.published.where(:url => request.host).first
