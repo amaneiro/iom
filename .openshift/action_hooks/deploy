@@ -1,0 +1,15 @@
+CB_USER_DIR="${OPENSHIFT_DATA_DIR}/user"
+CB_SITE_IMG="${CB_USER_DIR}/sites"
+SYMLINK_TO_USER_DIR="${OPENSHIFT_REPO_DIR}/public/images/u"
+
+# Ensure our stored assets directory exists
+if [ ! -d "${CB_USER_DIR}" ]; then
+   echo " Creating permanent user stored directory"
+   mkdir -p "${CB_USER_DIR}"
+   mkdir -p "${CB_SITE_IMG}"
+fi
+
+# Create symlink to stored assets
+if [ ! -d "${SYMLINK_TO_USER_DIR}" ]; then
+   ln -sf "${CB_USER_DIR}" "${SYMLINK_TO_USER_DIR}"
+fi
