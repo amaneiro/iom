@@ -11,8 +11,8 @@ fi
 
 # Create symlink to stored assets
 if [ ! -d "${SYMLINK_TO_USER_DIR}" ]; then
-   echo " Creating symlink to permanent user directory"
+   echo "Creating symlink to permanent user directory"
    ln -sf "${CB_USER_DIR}" "${SYMLINK_TO_USER_DIR}"
 else
-   echo " Symlink to permanent user directory in place"
+   echo "Symlink to permanent user directory in place"
 fi
