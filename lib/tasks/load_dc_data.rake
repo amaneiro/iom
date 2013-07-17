@@ -36,6 +36,18 @@ namespace :dc do
 
     end
 
+    desc 'Load sectors'
+    task :load_sectors => :environment do
+      csv = CsvMapper.import("#{Rails.root}/db/data/bolivia/sectores.csv") do
+        read_attributes_from_file
+      end
+      csv.each do |row|
+        unless sector = Sector.where("name = ?", row.sector).first
+          Sector.create :name => row.sector
+        end
+      end
+    end
+
   end
 
 end
