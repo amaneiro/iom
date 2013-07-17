@@ -48,6 +48,25 @@ namespace :dc do
       end
     end
 
+    desc 'Load organizations'
+    task :load_organizations => :environment do
+      csv = CsvMapper.import("#{Rails.root}/db/data/bolivia/organizaciones.csv") do
+        read_attributes_from_file
+      end
+      csv.each do |row|
+        unless o = Organization.where("name = ?", row.name).first
+          org = Organization.new
+          org.name            = row.name
+          org.organization_id = row.organization_id
+          org.website         = row.website
+          org.save!
+          puts "Org: created #{row.name}"
+        else
+          puts "Org: already exists #{row.name}"
+        end
+      end
+    end
+
   end
 
 end
