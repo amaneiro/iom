@@ -27,7 +27,7 @@ namespace :dc do
         r.center_lon       = row.lon
         r.the_geom         = Point.from_x_y(row.lon, row.lat)
         r.ia_name          = row.name
-        r.parent_region_id = Region.where("name = ?", row.parent_region).first.id
+        r.parent_region_id = Region.where("country_id = ? AND name = ?", 17, row.parent_region).first.id
         r.save!
         r.gadm_id          = r.id
         r.save!
