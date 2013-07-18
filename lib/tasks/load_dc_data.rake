@@ -6,7 +6,7 @@ namespace :dc do
   namespace :data do
 
     desc 'Load administrative boundaries: countries & regions'
-    task :load_adm => %w(iom:data:load_countries iom:data:load_adm_levels coop_beta:data:load_adm_bolivia)
+    task :load_bolivia => %w(dc:data:load_adm_bolivia dc:data:load_sectors dc:data:load_organizations dc:data:load_projects)
 
     desc 'Load Bolivia administrative boundaries'
     task :load_adm_bolivia => :environment do
