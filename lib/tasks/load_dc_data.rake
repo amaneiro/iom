@@ -44,6 +44,7 @@ namespace :dc do
       csv.each do |row|
         unless sector = Sector.where("name = ?", row.sector).first
           Sector.create :name => row.sector
+          puts "Sector #{row.sector}"
         end
       end
     end
