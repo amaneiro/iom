@@ -18,7 +18,7 @@
 
     </div>
     <div class="right home">
-      <% unless @site.short_description.nil? %><p><%= anglo(@site.long_description) %> <a href="<%= page_path(Page.about(@site)) %>">Learn more</a></p><%end%>
+      <% unless @site.short_description.nil? %><p><%= anglo(@site.long_description) %> <a href="<%= page_path(Page.about(@site)) %>">Más info</a></p><%end%>
     </div>
   </div>
 </div>
@@ -48,18 +48,18 @@
     <div class="float_left">
       <div class="block box_info">
         <div class="projects_account">
-          <label>PROJECTS</label>
+          <label>PROYECTOS</label>
           <h2><%= @site.total_projects %></h2>
         </div>
         <div class="orgs_account">
-          <label>ORGANIZATIONS</label>
+          <label>ORGANIZACIONES</label>
           <h2><%= @site.organizations_count %></h2>
         </div>
       </div>
 
       <% cache("#{@site.id}/home/projects_by_cluster_sector") do %>
       <div class="block statistics">
-        <h3>PROJECT <%= @site.word_for_cluster_sector.upcase %></h3>
+        <h3><%= @site.word_for_cluster_sector.upcase %></h3>
         <ul class="statistics_list">
         <% @site.projects_sectors_or_clusters.each do |category, count| %>
           <% unless category.name.eql?('N/A') %>
@@ -80,14 +80,14 @@
 
       <% cache("#{@site.id}/home/projects_by_location") do %>
       <div class="block statistics less">
-        <h3>PROJECT LOCATIONS</h3>
+        <h3>LOCALIZACIONES</h3>
         <%= raw(projects_by_location(@site)) %>
       </div>
       <% end %>
 
       <% cache("#{@site.id}/home/organizations") do %>
       <div id="most_active_orgs" class="block">
-        <h3>Some Organizations</h3>
+        <h3>Algunas Organizaciones</h3>
         <ul>
           <% @site.projects_organizations[0...9].each do |organization, count| %>
           <li><%= link_to organization.name, organization_path(organization) %> - <%= pluralize(count, 'project') %></li>
@@ -108,24 +108,24 @@
     <h3 class="withlogo">
       <%= site_project_count %>
       <ul class="download">
-        <li><%= link_to 'CSV', "#{url(@site)}/.csv" %></li>
+        <li><%= link_to 'CSV', "http://#{Settings.main_site_host}/.csv" %></li>
         <li>|</li>
-        <li><%= link_to 'EXCEL', "#{url(@site)}/.xls" %></li>
+        <li><%= link_to 'EXCEL', "http://#{Settings.main_site_host}/.xls" %></li>
         <li>|</li>
-        <li><%= link_to 'KML', "#{url(@site)}/.kml" %></li>
+        <li><%= link_to 'KML', "http://#{Settings.main_site_host}//.kml" %></li>
         <li>|</li>
-        <li><%= link_to 'RSS', "#{url(@site)}/.xml" %></li>
+        <li><%= link_to 'RSS', "http://#{Settings.main_site_host}/.xml" %></li>
         <li>·</li>
-        <li><%= link_to 'Embed this map', '#', :id => 'embed_map' %></li>
+        <li><%= link_to 'Copiar este mapa', '#', :id => 'embed_map' %></li>
       </ul>
     </h3>
 
     <div id="popup" class="embed_map">
       <a class="close top" href="#"></a>
-      <h5>Embed this map</h5>
-      <p>Copy this code and paste it in your HTML page for embedding the map.</p>
+      <h5>Copia este mapa</h5>
+      <p>Copia este código y pégalo en tu página HTML.</p>
       <textarea><iframe src="<%= url_with_embed_param %>" frameborder="0" width="600" height="600"></iframe></textarea>
-      <a href="#" class="close button">Close</a>
+      <a href="#" class="close button">Cerrar</a>
     </div>
     <div class="popup_background"></div>
 
