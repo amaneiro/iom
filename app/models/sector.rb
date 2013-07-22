@@ -146,7 +146,7 @@ SQL
     'logistics'
     elsif (name.include? 'Nutrition')
     'nutrition'
-    elsif ((name.include? 'Peace') || (name.include? 'Gobernabilidad'))
+    elsif ((name.include? 'Peace') || (name.include? 'Gobernabilidad') || (name.include? 'Paz'))
      'peace_security'
     elsif (name.include? 'Protection')
       'protection'
