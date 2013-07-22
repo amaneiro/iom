@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # == Schema Information
 #
 # Table name: sectors
@@ -125,33 +126,33 @@ SQL
     'disaster_management'
     elsif (name.include? 'Early Recovery')
     'early_recovery'
-    elsif (name.include? 'Economic Recovery')
+    elsif ((name.include? 'Economic Recovery') || (name.include? 'Crecimiento'))
     'economic_recovery'
-    elsif (name.include? 'Education')
+    elsif ((name.include? 'Education') || (name.include? 'Educación'))
     'education'
     elsif (name.include? 'Emergency Telecommunications')
     'emergency'
-    elsif (name.include? 'Environment')
+    elsif ((name.include? 'Environment') || (name.include? 'Sostenibilidad'))
     'environment'
     elsif (name.include? 'Food Aid')
     'food_aid'
-    elsif (name.include? 'Food Security')
+    elsif ((name.include? 'Food Security') || (name.include? 'Hambre'))
     'food_security'
-    elsif (name.include? 'Health')
+    elsif ((name.include? 'Health') || (name.include? 'Salud'))
     'health'
-    elsif (name.include? 'Human')
+    elsif ((name.include? 'Human') || (name.include? 'en Desarrollo'))
     'human_rights'
     elsif (name.include? 'Logistics')
     'logistics'
     elsif (name.include? 'Nutrition')
     'nutrition'
-    elsif (name.include? 'Peace')
+    elsif ((name.include? 'Peace') || (name.include? 'Gobernabilidad'))
      'peace_security'
     elsif (name.include? 'Protection')
       'protection'
     elsif (name.include? 'Shelter')
        'shelter'
-    elsif (name.include? 'Water')
+    elsif ((name.include? 'Water') || (name.include? 'Agua'))
        'water_sanitation'
     else
        'other'
