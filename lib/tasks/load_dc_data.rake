@@ -55,8 +55,7 @@ namespace :dc do
 
     desc 'Load organizations'
     task :load_organizations => :environment do
-      # TODO: load only OE organizations
-      csv = CsvMapper.import("#{Rails.root}/db/data/bolivia/organizaciones.csv") do
+      csv = CsvMapper.import("#{Rails.root}/db/data/bolivia/organizaciones_espanholas.csv") do
         read_attributes_from_file
       end
       csv.each do |row|
@@ -75,7 +74,6 @@ namespace :dc do
 
     desc 'Load donors'
     task :load_donors => :environment do
-      # TODO: load only donors
       csv = CsvMapper.import("#{Rails.root}/db/data/bolivia/organizaciones.csv") do
         read_attributes_from_file
       end
