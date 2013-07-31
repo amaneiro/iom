@@ -1,4 +1,4 @@
-organization_id, name, website
+organization_id,name,website
 AAC,Agencia Asturiana de Cooperación,http://www.bienestar.as/v_portal/apartados/apartado.asp?te=82
 AACID,Agencia Andaluza de Cooperación Internacional al Desarrollo,http://www.juntadeandalucia.es/presidencia/impe/presidencia/navegacion?idSeccion=e7b607f0-b7df-11de-983c-00127968a9ba
 ACCD,Agencia Catalana de Cooperación al Desarrollo,http://www.gencat.cat/cooperacioexterior/cooperacio/
@@ -69,8 +69,8 @@ AVCD,Agencia Vasca de Cooperación al Desarrollo,http://www.elankidetza.euskadi.
 AyC,Asociacion Cultural Amistad y Ciencia,http://www.yachay.org/
 AYNI,Asociación Civil AYNI,
 BANCAJA,Bancaja (ahora Bankia),http://www.bankia.es/
-Bartolinas,Mujeres Campesinas Indígenas Originarias - Bartolina Sisa,http://www.bartolinasisa.org/
-BENEF,Beneficiarios, Socios, Comunidades, etc,
+Bartolinas,"Mujeres Campesinas Indígenas Originarias ""Bartolina Sisa""",http://www.bartolinasisa.org/
+BENEF,"Beneficiarios, Socios, Comunidades, etc",
 BpLP,Bicis por la Paz,
 CABI,Capitania del Alto y Bajo Izozog,http://www.equatorinitiative.org/index.php?option=com_content&view=article&id=485%3Acabi&catid=105%3Aequator-prize-winners-2004&Itemid=709
 CADES,Centro de Asesoramiento para el Desarrollo Social,
@@ -107,7 +107,7 @@ CETHA,Centro de Educación Técnica Humanística Agropecuaria - Emborozú,http:/
 CETM,Centro de Estudio y Trabajo de la Mujer,http://www.cetmbolivia.org/
 CIC_BATA,Centro de Iniciativas para la Cooperación Batá,http://www.cicbata.org/
 CID,Centro de Iniciativas para el Desarrollo,
-CIDAC,Centro Investigación, Diseño Artesanal y Comercialización Cooperativa,
+CIDAC,"Centro Investigación, Diseño Artesanal y Comercialización Cooperativa",
 CIDOB,Confederación de Pueblos Indigenas de Bolivia,http://www.cidob-bo.org/
 CIEC,Centro Interdisciplinario de Estudios Comunitarios,http://www.ciec.org.bo/
 CIEP,Centro de Investigaciones de Energía y Población,
@@ -166,7 +166,7 @@ GPF,Grupo PrimaFlor,http://www.primaflor.com/es/inicio.html
 Gregorias,Centro de Promoción Gregoria Apaza,http://www.gregorias.org.bo/
 Hosp_HVV,Hospital Hernández Vera Villa 1º Mayo,
 HOYAM,Centro de Estudio de la Hoya Amazoníca ,http://www.hoyam-mojos.org/
-HSR,Hermanitas de los Ancianos Desamparados Hogar - San Ramón,
+HSR,"Hermanitas de los Ancianos Desamparados Hogar ""San Ramón""",
 HTA,Hogar Teresa de los Andes,
 ICFB,Institucion Cultural Femenina Boliviana,
 FICO,Fundación ICO,http://www.fundacionico.es/
@@ -194,9 +194,9 @@ LLAR,Caixa Terrassa,http://www.llarct.es/contingut.aspx?idioma=2&pag=1803
 Machaqa,Fundación Machaqa Amaw'ta,http://www.fundacionmachaqa.org/
 MaGCP,Mancomunidad Gran Centro Potosí,
 MANRIBE,Mancomunidad de Municipios del Río Beni,
-MdBPCTyT,Municipios de Betanzos, Puna, Cotagaita, Tacobamba y Tinquipaya,
+MdBPCTyT,"Municipios de Betanzos, Puna, Cotagaita, Tacobamba y Tinquipaya",
 MdCAL,Municipio de Calamarca,
-MdGMCyCC,Municipios de Gutiérrez, Montero, Comarapa y Cuatro Cañadas,
+MdGMCyCC,"Municipios de Gutiérrez, Montero, Comarapa y Cuatro Cañadas",
 MdLyC,Municipios de Licoma y Cajuata,
 MdM,Medicos del Mundo,http://www.medicosdelmundo.org/
 MdMdAMB,Mancomunidad de Municipios del Área Municipal de Barcelona,
@@ -205,7 +205,7 @@ MdYyP,Municipios de Yocalla y Puna,
 MMCHC,Mancomunididad de Municipios de Chuquisaca Centro,
 MME,Medicus Mundi,http://www.medicusmundi.info/
 Mosoj-C,Mosoj Causay,
-MPDL,Movimiento por la Paz, el Desarme y la Libertad,http://www.mpdl.org/
+MPDL,"Movimiento por la Paz, el Desarme y la Libertad",http://www.mpdl.org/
 Mundubat,Fundación Mundubat,http://www.mundubat.org/
 MuniAlc,Municipio de Alcalá,
 MuniBdU,Municipio de Belén de Urmiri,
@@ -238,13 +238,13 @@ OSCAR,Obras Sociales de Caminos de Acceso Rural,
 OSLA,Obra Social La Caixa,http://obrasocial.lacaixa.es/
 Oxfam,Oxfam Internacional,http://www.oxfam.org/es
 PASOC,Pastoral Social Caritas,http://www.pasoc.org.bo/
-PASOS,Fundación Participación y Sostenibilidad - PASOS,
-PREDT,Prefectura Departamento de Tarija,
+PASOS,"Fundación Participación y Sostenibilidad ""PASOS""",
+PDT,Prefectura Departamento de Tarija,
 PMA,Programa Mundial de Alimentos,http://es.wfp.org/
 PMH,Pastoral de Movilidad Humana,http://www.pmhmigrantes.org.bo/
 PRIVA,Socios Particulares,
 PROAGRO,Promotores Agropecuarios,http://www.proagro.org/
-PROBIOMA,Productividad, Biosfera y Medio Ambiente,http://www.probioma.org.bo
+PROBIOMA,"Productividad, Biosfera y Medio Ambiente",http://www.probioma.org.bo
 Proceso,Proceso Servicios Educativos,
 PROCOSI,PROgrama de COordinación en Salud Integral,http://www.procosi.org/
 PROINEXA,Proinexa,
