@@ -7,7 +7,7 @@ namespace :dc do
   namespace :data do
 
     desc 'Load all data needed for Bolivia site'
-    task :load => %w(dc:data:load_settings dc:data:load_adm_world dc:data:load_adm_bolivia dc:data:load_sectors dc:data:load_organizations dc:data:load_donors dc:data:load_projects dc:data:load_donations)
+    task :load => %w(dc:data:load_adm_world dc:data:load_adm_bolivia dc:data:load_sectors dc:data:load_organizations dc:data:load_donors dc:data:load_projects dc:data:load_donations dc:data:load_settings)
 
     desc 'Load countries and 1st administrative level for the whole world'
     task :load_adm_world => %w(iom:data:load_countries iom:data:load_adm_levels)
@@ -258,57 +258,13 @@ namespace :dc do
                       :theme             => Theme.find_by_name('Garnet'),
                       :navigate_by_level3 => true
 
-      site.overview_map_bbox_miny = -23.6445
-      site.overview_map_bbox_minx = -72.8613
-      site.overview_map_bbox_maxy =  -9.3624
-      site.overview_map_bbox_maxx = -55.5469
-
+      site.overview_map_lat  = -16.3412256192075
+      site.overview_map_lon  = -64.1162109375
+      site.overview_map_zoom = 5
       site.geographic_context_country_id = Country.find_by_name('Bolivia').id
       site.word_for_regions = "Regiones"
       site.save!
       puts "Settings: bolivia site created"
-
-      site.pages.find_by_title('About').update_attribute(:body, <<-HTML
-                    <p><a href="/">InterAction</a> is developing a web-based mapping platform and database that will ultimately map all of our members’
-                    work worldwide. In 2010, InterAction will pilot the mapping platform with a focus on the NGO community’s response to the earthquake
-                    in Haiti, as well as its efforts to improve food security in various countries around the world.</p>
-                    <p>The mapping platform will be an effective, flexible and sustainable means of capturing information on NGO activities that will:</p>
-                    <ul>
-                      <li>Demonstrate NGOs’ commitment to transparency and accountability</li>
-                      <li>Facilitate partnerships and improve coordination among humanitarian actors</li>
-                      <li>Help NGOs and other actors make more informed decisions about where to direct resources</li>
-                      <li>Highlight the global reach of NGOs to donors, the media and public</li>
-                    </ul>
-                    <h3>BENEFITS OF PARTICIPATING</h3>
-                    <p>InterAction members who participate in the mapping initiative will have access to a powerful, user-friendly mapping software, GeoIQ, at no cost. With this tool, members will be able to:</p>
-                    <ul>
-                      <li>Create maps and easily share them with others</li>
-                      <li>Identify potential partners</li>
-                      <li>Identify underserved areas or areas with greatest needs</li>
-                      <li>Access more than 20,000 data sets from organizations such as the United Nations or World Bank</li>
-                      <li>Overlay project information with relevant statistical information, such as child malnutrition rates</li>
-                      <li>Analyze large amounts of data</li>
-                    </ul>
-               HTML
-                                                         )
-      site.pages.find_by_title('Highlights').update_attribute(:body, <<-HTML
-                   <p>On October 21, the Government of Haiti confirmed an outbreak of cholera, an acute and highly contagious diarrheal disease caused
-                   by eating or drinking contaminated food or water. Unless immediately treated, cholera can be fatal. As of November 16 Haiti’s Ministry of
-                   Health has confirmed 1,039 deaths and 16,799 hospitalized cases.</p>
-
-                   <p>The Haitian Government, UN and NGOs have responded quickly to the epidemic. We have provided treatment to those affected, strengthened health
-                   care centers so they are ready to respond, and attempted to prevent the further spread of the disease by distributing clean water and food and promoting good hygiene practices.
-                   The provision of safe water and sanitation is critical to reducing the impact of cholera.</p>
-
-                   <p>This map provides information on the number of water and sanitation projects established by InterAction members prior to the cholera outbreak.
-                   Departments that have been directly affected by cholera are shaded in red, with darker shades indicating higher number of deaths and departments with no cases (in green).</p>
-
-                   <p>For general information on how InterAction members are responding to the outbreak, please visit the Cholera Outbreak Crisis Response
-                  List on InterAction’s website. For specific examples of members’ response please visit the Member Response to Cholera in Haiti map.</p>
-
-                   <p>Source: Ministere de la Sante Publique et de la Population (MSPP) - November 16, 2010</p>
-              HTML
-                                                              )
 
     end
 
