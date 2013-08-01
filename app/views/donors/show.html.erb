@@ -36,6 +36,11 @@
           <% end %>
         </div>
 
+        <div class="block border">
+          <h2>INVERSIÓN TOTAL</h2>
+          <h1><%= number_with_precision(@donor.donations_amount, :precision => 0, :delimiter => '.') %> €</h1>
+        </div>
+
         <!-- CLUSTER -->
         <div class="block border statistics">
           <h2>PROJECT <%= @site.word_for_cluster_sector %></h2>
