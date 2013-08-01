@@ -427,6 +427,11 @@ class Site < ActiveRecord::Base
     ActiveRecord::Base.connection.execute(sql).first['count'].to_i
   end
 
+  def total_budget
+    sql = "SELECT SUM(budget) AS budget FROM projects WHERE end_date IS NULL OR end_date > now()"
+    ActiveRecord::Base.connection.execute(sql).first['budget'].to_i
+  end
+
   def clusters
     Cluster.find_by_sql("select c.* from clusters as c where id in (
         select cp.cluster_id from (clusters_projects as cp inner join projects as p on cp.project_id=p.id)
