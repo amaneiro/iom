@@ -1201,6 +1201,17 @@ div {
         }
       }
     }
+    &.global_budget {
+      label {
+        font: bold 13px "Open Sans Bold";
+        color: #666666;
+        width: 98px; 
+      }
+      h2 {
+        font: normal 36px "Aller";
+        color: #666666;
+      }
+    }
     &.green {
       background: #D8E5C0;
       h3 {
