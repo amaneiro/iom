@@ -46,8 +46,8 @@ class CreateGeoiqViews < ActiveRecord::Migration
     execute "insert into geometry_columns VALUES('','public','v_projects','the_geom',2,'4326','MULTIPOINT')"
 
     #Create a geoiq user and give him permissions:
-    execute "DROP ROLE IF EXISTS geoiq;"
-    execute "CREATE ROLE geoiq LOGIN ENCRYPTED PASSWORD 'md54c67ea040991d532eb7586d147a178b5' VALID UNTIL 'infinity';"
+    # execute "DROP ROLE IF EXISTS geoiq;"
+    # execute "CREATE ROLE geoiq LOGIN ENCRYPTED PASSWORD 'md54c67ea040991d532eb7586d147a178b5' VALID UNTIL 'infinity';"
     execute "GRANT SELECT ON TABLE v_projects TO geoiq;"
     execute "GRANT SELECT ON TABLE v_regions_num_projects TO geoiq;"
 
