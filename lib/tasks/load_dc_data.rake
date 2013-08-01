@@ -269,6 +269,16 @@ namespace :dc do
 
     end
 
+  desc 'Update project budget from donations info'
+  task :update_project_budget => :environment do
+      Project.all.each do |project|
+        sum_donations = 0
+        project.donations.each{|d| sum_donations = sum_donations + d.amount}
+        project.budget = sum_donations
+        project.save!
+      end
+  end
+
   end
 
 end
