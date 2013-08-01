@@ -254,13 +254,16 @@ namespace :dc do
                       :short_description => 'Mapa de la ayuda española en Bolivia',
                       :long_description  => 'Qué hacen las ONGs españolas en Bolivia',
                       :theme             => Theme.find_by_name('Garnet'),
-                      :navigate_by_level3 => true
+                      :navigate_by_level2 => true
 
       site.overview_map_lat  = -16.3412256192075
       site.overview_map_lon  = -64.1162109375
       site.overview_map_zoom = 5
       site.geographic_context_country_id = Country.find_by_name('Bolivia').id
-      site.word_for_regions = "Regiones"
+      site.word_for_regions  = "Regiones"
+      site.word_for_clusters = "Sectores"
+      site.contact_email     = "amaneiro@icarto.es"
+      site.contact_person    = "Andrés Maneiro"
       site.save!
       puts "Settings: bolivia site created"
 
