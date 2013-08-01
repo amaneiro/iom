@@ -269,15 +269,29 @@ namespace :dc do
 
     end
 
-  desc 'Update project budget from donations info'
-  task :update_project_budget => :environment do
+    desc 'Update project budget from donations info'
+    task :update_project_budget => :environment do
       Project.all.each do |project|
         sum_donations = 0
         project.donations.each{|d| sum_donations = sum_donations + d.amount}
         project.budget = sum_donations
         project.save!
       end
-  end
+    end
+
+    desc 'Import aditional_information for projects'
+    task :load_project_additional_info => :environment do
+      csv = CsvMapper.import("#{Rails.root}/db/data/bolivia/project_aditional_info.csv") do
+        read_attributes_from_file
+      end
+
+      csv.each do |row|
+        if p = Project.where("name = ?", row.name).first
+          p.additional_information = row.aditional_information
+          p.save!
+        end
+      end
+    end
 
   end
 
