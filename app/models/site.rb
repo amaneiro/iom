@@ -124,7 +124,7 @@ class Site < ActiveRecord::Base
       if navigate_by_cluster?
         'clusters'
       else
-        'sectors'
+        'sectores'
       end
     else
       w
