@@ -95,7 +95,7 @@
         <h3>Algunas Organizaciones</h3>
         <ul>
           <% @site.projects_organizations[0...9].each do |organization, count| %>
-          <li><%= link_to organization.name, organization_path(organization) %> - <%= pluralize(count, 'project') %></li>
+          <li><%= link_to organization.name, organization_path(organization) %> - <%= pluralize(count, 'proyecto') %></li>
           <% end  -%>
         </ul>
       </div>
