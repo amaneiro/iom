@@ -7,7 +7,7 @@ module ProjectsHelper
       clusters_to_sentence(project)
     end
     place        = project_regions_and_countries(project)
-    organization = "by #{link_to project['organization_name'], organization_path(project['organization_id'])}"
+    organization = "por #{link_to project['organization_name'], organization_path(project['organization_id'])}"
 
     case controller_name
     when 'sites'
@@ -28,9 +28,9 @@ module ProjectsHelper
     clusters = project['clusters'].split('|').reject{|c| c.blank?}
     clusters_ids = project['cluster_ids'].delete('{}').split(',')
     if clusters.size == 1
-      "A #{link_to clusters.first, cluster_path(clusters_ids.first), :title => clusters.first} project"
+      "Proyecto de #{link_to clusters.first, cluster_path(clusters_ids.first), :title => clusters.first}"
     else
-      "A project from #{pluralize(clusters.size, 'different clusters')}"
+      "Proyecto en #{pluralize(clusters.size, 'clusters diferentes')}"
     end
   end
 
@@ -39,9 +39,9 @@ module ProjectsHelper
     sectors = project['sectors'].split('|').reject{|s| s.blank?}
     sectors_ids = project['sector_ids'].delete('{}').split(',')
     if sectors.size == 1
-      "A #{link_to sectors.first, sector_path(sectors_ids.first), :title => sectors.first} project"
+      "Proyecto de #{link_to sectors.first, sector_path(sectors_ids.first), :title => sectors.first}"
     else
-      "A project from #{pluralize(sectors.size, 'different sectors')}"
+      "Proyecto en #{pluralize(sectors.size, 'sectores diferentes')}"
     end
   end
 
@@ -60,9 +60,9 @@ module ProjectsHelper
       end
     end
     unless clusters_sectors.empty?
-      result << " on #{clusters_sectors.to_sentence}"
+      result << " de #{clusters_sectors.to_sentence}"
     end
-    result << " by #{link_to(project['organization_name'], organization_path(project['organization_id']))}"
+    result << " por #{link_to(project['organization_name'], organization_path(project['organization_id']))}"
     raw(result)
   end
 
@@ -72,9 +72,9 @@ module ProjectsHelper
       countries     = project['countries'].split('|').reject{|r| r.blank?}
       countries_ids = project['countries_ids'].delete('{}').split(',')
       if countries.size == 1
-        "in #{link_to(countries.first, location_path(:ids => [countries_ids.first]), :title => countries.first)}"
+        "en #{link_to(countries.first, location_path(:ids => [countries_ids.first]), :title => countries.first)}"
       else
-        "in #{pluralize(countries.size, 'country', 'countries')}"
+        "en #{pluralize(countries.size, 'país', 'países')}"
       end
     else
       return if project['regions'].nil? || project['regions_ids'].nil?
@@ -82,9 +82,9 @@ module ProjectsHelper
       regions_ids = project['regions_ids'].delete('{}').split(',')
 
       if regions.size == 1
-        "in #{link_to(regions.first, "/regions/#{regions_ids.first}", :title => regions.first)}"
+        "en #{link_to(regions.first, "/regions/#{regions_ids.first}", :title => regions.first)}"
       else
-        "in #{pluralize(regions.size, 'place')}"
+        "en #{pluralize(regions.size, 'lugar', 'lugares')}"
       end
     end
   end
