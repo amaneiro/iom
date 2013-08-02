@@ -34,7 +34,7 @@ var video_players = {};
         </p>
         <% if @project.finished? %>
           <div id="completed">
-            <p>COMPLETED PROJECT</p>
+            <p>PROYECTO COMPLETADO</p>
           </div>
         <% end %>
       </div>
@@ -62,7 +62,7 @@ var video_players = {};
 
         <% unless @project.description.blank? %>
           <div class="block">
-            <h3 class="first">PROJECT DESCRIPTION</h3>
+            <h3 class="first">DESCRIPCIÓN</h3>
             <%= anglo(simple_format(@project.description)) %>
           </div>
         <% end %>
@@ -96,11 +96,11 @@ var video_players = {};
           <% if @project.activities || @project.additional_information || @project.cross_cutting_issues || (@locations.present? && @locations.to_a.join.present?)%>
             <div class="block info">
               <%unless @project.activities.blank? %>
-                <h3 class="first">ACTIVITIES</h3>
+                <h3 class="first">ACTIVIDADES</h3>
                 <%= raw(@project.activities) %>
               <%end%>
               <%unless @project.additional_information.blank? %>
-                <h3 class="<%= (@project.activities.blank?)? 'first':''%>">ADDITIONAL INFORMATION</h3>
+                <h3 class="<%= (@project.activities.blank?)? 'first':''%>">INFORMACIÓN ADICIONAL</h3>
                 <%= raw(@project.additional_information) %>
               <%end%>
               <%unless @project.cross_cutting_issues.blank? %>
@@ -109,7 +109,7 @@ var video_players = {};
               <%end%>
               <%if @locations.present? && @locations.to_a.join.present? %>
                 <h3 class="<%= (@project.activities.blank? && @project.additional_information.blank? && @project.cross_cutting_issues.blank?)? 'first':''%>">
-                  <%= @locations.count == 1 ? 'LOCATION' : 'LOCATIONS' %>
+                  <%= @locations.count == 1 ? 'LOCALIZACIÓN' : 'LOCALIZACIONES' %>
                 </h3>
                 <ul class="locations">
 
@@ -127,7 +127,7 @@ var video_players = {};
 
           <div class="block info">
 
-            <h3 class="first">Spread the word</h3>
+            <h3 class="first">Comparte</h3>
 
             <% content_for :js do %>
 
@@ -172,7 +172,7 @@ var video_players = {};
           <div class="block margin">
             <% related_projects = @project.related(@site) %>
             <% unless related_projects.count<1 %>
-              <h3 class="first">OTHER PROJECTS</h3>
+              <h3 class="first">OTROS PROYECTOS</h3>
               <ul class="related_projects">
                 <% related_projects.each_with_index do |r,i| %>
                   <li <%= raw('class="last"') if i > 0 %>>
@@ -182,9 +182,9 @@ var video_players = {};
                     </div>
                     <div class="info">
                       <h4><a href="<%= project_path(:id => r['project_id']) %>"><%=truncate(r['project_name'], :length => 40)%></a></h4>
-                      <p>by <%= truncate(r['organization_name'], :length => 20) %></p>
+                      <p>por <%= truncate(r['organization_name'], :length => 20) %></p>
                       <% if r['path'] %>
-                        <p class="sub">in <a href="<%= location_path(:ids => r['path']) %>"><%= truncate(r['region_name']) %></a></p>
+                        <p class="sub">en <a href="<%= location_path(:ids => r['path']) %>"><%= truncate(r['region_name']) %></a></p>
                       <% end %>
                     </div>
                   </li>
@@ -201,7 +201,7 @@ var video_players = {};
       <div class="right"> <!--270px with shadow below-->
         <div class="block">
 
-          <h3>Reporting Organization</h3>
+          <h3>ORGANIZACIÓN ESPAÑOLA</h3>
           <div class="logo">
             <% if @project.primary_organization.logo.file? %>
               <div class="logo_bkg">
@@ -214,30 +214,9 @@ var video_players = {};
           </div>
         </div>
 
-        <%if !@project.end_date.nil?%>
-          <div class="block">
-            <h3>Project timeline</h3>
-            <div class="timeline"><span></span><p class="months_left"><%= pluralize(@project.months_left, 'month', 'months') %> left</p></div>
-            <p class="first_date"><%= @project.start_date.strftime("%m/%d/%Y") %></p>
-            <p class="second_date"><%= @project.end_date.strftime("%m/%d/%Y") %></p>
-          </div>
-        <% elsif @project.start_date?%>
-          <div class="block">
-            <h3>Project timeline</h3>
-            <p>Active since <%= @project.start_date.strftime("%m/%d/%Y") %></p>
-          </div>
-        <%end%>
-
-        <% unless @project.budget.nil? || @project.budget.eql?(0.0) %>
-          <div class="block">
-            <h3>Project budget</h3>
-            <p class="budget"><%= number_with_precision(@project.budget, :precision => 0, :delimiter => ',') %></p>
-          </div>
-        <%end%>
-
         <% unless @project.donations.empty? %>
           <div class="block">
-            <h3>Donors & Offices</h3>
+            <h3>Socios locales y Financiadores</h3>
             <ul class="donor_list">
               <% index = 0 %>
               <% @project.donations.group_by(&:donor).each_with_index do |donor_with_donations, index| %>
@@ -268,6 +247,27 @@ var video_players = {};
           </div>
         <% end %>
 
+        <%if !@project.end_date.nil?%>
+          <div class="block">
+            <h3>Timeline del proyecto</h3>
+            <div class="timeline"><span></span><p class="months_left">quedan<%= pluralize(@project.months_left, 'mes', 'meses') %></p></div>
+            <p class="first_date"><%= @project.start_date.strftime("%m/%d/%Y") %></p>
+            <p class="second_date"><%= @project.end_date.strftime("%m/%d/%Y") %></p>
+          </div>
+        <% elsif @project.start_date?%>
+          <div class="block">
+            <h3>Timeline del proyecto</h3>
+            <p>Activo desde <%= @project.start_date.strftime("%m/%d/%Y") %></p>
+          </div>
+        <%end%>
+
+        <% unless @project.budget.nil? || @project.budget.eql?(0.0) %>
+          <div class="block">
+            <h3>Presupuesto</h3>
+            <p class="budget"><%= number_with_precision(@project.budget, :precision => 0, :delimiter => ',') %></p>
+          </div>
+        <%end%>
+
         <% if @project.awardee_type.present? -%>
           <div class="block">
             <h3>Prime Awardee</h3>
@@ -292,7 +292,7 @@ var video_players = {};
         <% unless !@project.estimated_people_reached? && !@project.target?%>
           <div class="block">
             <% if @project.estimated_people_reached? %>
-              <h3>People reached</h3>
+              <h3>Nº de beneficiarios</h3>
               <p class="estimate"><%= @project.estimated_people_reached %></p>
               <span estimate="<%= @project.estimated_people_reached %>" class="people_amount"></span>
             <%end%>
@@ -305,7 +305,7 @@ var video_players = {};
 
         <% unless @project.contact_email.blank? && @project.contact_person.blank? && @project.contact_phone_number.blank? %>
           <div class="block">
-            <h3>Contact information</h3>
+            <h3>Información de contacto</h3>
             <p>
               <strong><%= @project.contact_person %></strong><br/>
               <%= @project.contact_position %><br/>
@@ -319,7 +319,7 @@ var video_players = {};
 
         <% unless @project.website.blank?%>
           <div class="block">
-            <h3>Project Website</h3>
+            <h3>Website</h3>
             <% unless (@project.website.nil?)||(@project.website.empty?) %>
               <p class="no_margin"><%= link_to(@project.website, @project.website) %></p>
             <%end%>
@@ -328,7 +328,7 @@ var video_players = {};
 
         <% unless @project.resources.empty? %>
           <div class="block resources">
-            <h3>ADDITIONAL RESOURCES</h3>
+            <h3>RECURSOS ADICIONALES</h3>
 
             <% @project.resources.each do |resource| %>
               <ul>
@@ -339,7 +339,7 @@ var video_players = {};
         <% end %>
 
         <div class="block last">
-          <h3>EXPORT DATA</h3>
+          <h3>EXPORTAR DATOS</h3>
           <div class="import_data">
             <p><%= link_to 'CSV', project_path(@project, :csv) %> | <%= link_to 'KML', project_path(@project, :kml) %> | <%= link_to 'EXCEL', project_path(@project, :xls) %></p>
           </div>
