@@ -34,6 +34,23 @@ class Region < ActiveRecord::Base
     (columns.map{ |c| c.name } - ['the_geom']).map{ |c| "#{self.table_name}.#{c}" }
   end
 
+  def projects_budget(site, category_id = nil)
+    if category_id.present? && category_id.to_i > 0
+      if site.navigate_by_cluster?
+        category_join = "inner join clusters_projects as cp on cp.project_id = p.id and cp.cluster_id = #{category_id}"
+      else
+        category_join = "inner join projects_sectors as pse on pse.project_id = p.id and pse.sector_id = #{category_id}"
+      end
+    end
+
+    sql = "select sum(p.budget) as count from projects as p
+    inner join projects_sites as ps on p.id=ps.project_id and ps.site_id=#{site.id}
+    inner join projects_regions as pre on p.id=pre.project_id and pre.region_id=#{self.id}
+    #{category_join}
+    where (p.end_date is null OR p.end_date > now())"
+    ActiveRecord::Base.connection.execute(sql).first['count'].to_f
+  end
+
   # Array of arrays
   # [[cluster, count], [cluster, count]]
   def projects_clusters_sectors(site)
