@@ -77,6 +77,23 @@ SQL
     ActiveRecord::Base.connection.execute(sql).first['count'].to_i
   end
 
+  def projects_budget(site, location_id = nil)
+    if location_id.present?
+      if location_id.size == 1
+        location_join = "inner join countries_projects cp on cp.project_id = p.id and cp.country_id = #{location_id.first}"
+      else
+        location_join = "inner join projects_regions as pr on pr.project_id = p.id and pr.region_id = #{location_id.last}"
+      end
+    end
+
+    sql = "select sum(p.budget) as count from projects as p
+    inner join projects_sites as ps on p.id=ps.project_id and ps.site_id=#{site.id}
+    inner join projects_sectors pse ON p.id=pse.project_id and pse.sector_id=#{self.id}
+    #{location_join}
+    where (p.end_date is null OR p.end_date > now())"
+    ActiveRecord::Base.connection.execute(sql).first['count'].to_f
+  end
+
   def total_projects(site, location_id = nil)
     if location_id.present?
       if site.navigate_by_country
