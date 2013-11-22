@@ -185,10 +185,6 @@ class Project < ActiveRecord::Base
     where << "(cp.country_id IS NOT NULL OR pr.region_id IS NOT NULL)"
     where << "site_id = #{site.id}" if site
 
-    where << '(p.end_date is null OR p.end_date > now())' if !options[:include_non_active]
-
-
-
     if options[:kml]
       kml_select = <<-SQL
         , CASE WHEN regions_ids IS NOT NULL AND regions_ids != ('{}')::integer[] THEN
@@ -414,7 +410,7 @@ class Project < ActiveRecord::Base
       (select path from regions where id=regions_ids[1]) as path
       from data_denormalization where
       organization_id = #{self.primary_organization_id}
-      and project_id!=#{self.id} and site_id=#{site.id} and (end_date is null OR end_date > now())
+      and project_id!=#{self.id} and site_id=#{site.id}
       and (select center_lat from regions where id=regions_ids[1]) is not null
       limit #{limit}
 SQL
@@ -429,7 +425,7 @@ SQL
           (select path from regions where id=regions_ids[1]) as path
           from data_denormalization where
           regions_ids && (select ('{'||array_to_string(array_agg(region_id),',')||'}')::integer[] as regions_ids from projects_regions where project_id=#{self.id})
-          and project_id!=#{self.id} and site_id=#{site.id} and (end_date is null OR end_date > now())
+          and project_id!=#{self.id} and site_id=#{site.id}
           and (select center_lat from regions where id=regions_ids[1]) is not null
           limit #{limit}
 SQL
@@ -442,7 +438,7 @@ SQL
           (select center_lon from regions where id=regions_ids[1]) as center_lon,
           (select path from regions where id=regions_ids[1]) as path
           from data_denormalization where
-          project_id!=#{self.id} and site_id=#{site.id} and (end_date is null OR end_date > now())
+          project_id!=#{self.id} and site_id=#{site.id}
           limit #{limit}
 SQL
     )
@@ -460,7 +456,7 @@ SQL
     sql = ""
     if options[:region]
       where = []
-      where << "regions_ids && '{#{options[:region]}}' and site_id=#{site.id} and (end_date is null OR end_date > now())"
+      where << "regions_ids && '{#{options[:region]}}' and site_id=#{site.id}"
       if options[:region_category_id]
         if site.navigate_by_cluster?
           where << "cluster_ids && '{#{options[:region_category_id]}}'"
@@ -472,7 +468,7 @@ SQL
       sql="select * from data_denormalization where #{where.join(' and ')}"
     elsif options[:country]
       where = []
-      where << "countries_ids && '{#{options[:country]}}' and site_id=#{site.id} and (end_date is null OR end_date > now())"
+      where << "countries_ids && '{#{options[:country]}}' and site_id=#{site.id}"
       if options[:country_category_id]
         if site.navigate_by_cluster?
           where << "cluster_ids && '{#{options[:country_category_id]}}'"
@@ -484,21 +480,21 @@ SQL
       sql="select * from data_denormalization where #{where.join(' and ')}"
     elsif options[:cluster]
       where = []
-      where << "cluster_ids && '{#{options[:cluster]}}' and site_id=#{site.id} and (end_date is null OR end_date > now())"
+      where << "cluster_ids && '{#{options[:cluster]}}' and site_id=#{site.id}"
       where << "regions_ids && '{#{options[:cluster_region_id]}}'" if options[:cluster_region_id]
       where << "countries_ids && '{#{options[:cluster_country_id]}}'" if options[:cluster_country_id]
 
       sql="select * from data_denormalization where #{where.join(' and ')}"
     elsif options[:sector]
       where = []
-      where << "sector_ids && '{#{options[:sector]}}' and site_id=#{site.id} and (end_date is null OR end_date > now())"
+      where << "sector_ids && '{#{options[:sector]}}' and site_id=#{site.id}"
       where << "regions_ids && '{#{options[:sector_region_id]}}'" if options[:sector_region_id]
       where << "countries_ids && '{#{options[:sector_country_id]}}'" if options[:sector_country_id]
 
       sql="select * from data_denormalization where #{where.join(' and ')}"
     elsif options[:organization]
       where = []
-      where << "organization_id = #{options[:organization]} and site_id=#{site.id} and (end_date is null OR end_date > now())"
+      where << "organization_id = #{options[:organization]} and site_id=#{site.id}"
 
       if options[:organization_category_id]
         if site.navigate_by_cluster?
@@ -513,9 +509,9 @@ SQL
 
       sql="select * from data_denormalization where #{where.join(' and ')}"
     elsif options[:donor_id]
-      sql="select * from data_denormalization where donors_ids && '{#{options[:donor_id]}}' and site_id=#{site.id} and (end_date is null OR end_date > now())"
+      sql="select * from data_denormalization where donors_ids && '{#{options[:donor_id]}}' and site_id=#{site.id}"
     else
-      sql="select * from data_denormalization where site_id=#{site.id} and (end_date is null OR end_date > now())"
+      sql="select * from data_denormalization where site_id=#{site.id}"
     end
 
     total_entries = ActiveRecord::Base.connection.execute("select count(*) as count from (#{sql}) as q").first['count'].to_i
@@ -693,7 +689,7 @@ SQL
                '|'||array_to_string(array_agg(distinct clus.name),'|')||'|' as clusters,
                ('{'||array_to_string(array_agg(distinct clus.id),',')||'}')::integer[] as cluster_ids,
                ('{'||array_to_string(array_agg(distinct d.donor_id),',')||'}')::integer[] as donors_ids,
-               CASE WHEN end_date is null OR p.end_date > now() THEN true ELSE false END AS is_active,
+               true AS is_active,
                ps.site_id,p.created_at
                FROM projects as p
                INNER JOIN organizations as o ON p.primary_organization_id=o.id
@@ -731,7 +727,7 @@ SQL
                     '|'||array_to_string(array_agg(distinct clus.name),'|')||'|' as clusters,
                     ('{'||array_to_string(array_agg(distinct clus.id),',')||'}')::integer[] as cluster_ids,
                     ('{'||array_to_string(array_agg(distinct d.donor_id),',')||'}')::integer[] as donors_ids,
-                    CASE WHEN end_date is null OR p.end_date > now() THEN true ELSE false END AS is_active,
+                    true AS is_active,
                     p.created_at
                     FROM projects as p
                     INNER JOIN organizations as o ON p.primary_organization_id=o.id

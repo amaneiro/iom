@@ -65,7 +65,7 @@ class GeoregionController < ApplicationController
                   END as url,
                   r.code
                   from ((projects_regions as pr inner join projects_sites as ps on pr.project_id=ps.project_id and ps.site_id=#{@site.id})
-                  inner join projects as p on pr.project_id=p.id and (p.end_date is null OR p.end_date > now())
+                  inner join projects as p on pr.project_id=p.id
                   inner join regions as r on pr.region_id=r.id and r.level=#{@site.levels_for_region.min} and r.country_id=#{country.id})
                   #{category_join}
                   group by r.id,r.name,lon,lat,r.name,r.path,r.code"
@@ -75,7 +75,7 @@ class GeoregionController < ApplicationController
           select c.id,count(ps.project_id) as count,c.name,c.center_lon as lon,c.center_lat as lat
           from (countries_projects as cp
             inner join projects_sites as ps on cp.project_id=ps.project_id and site_id=#{@site.id})
-            inner join projects as p on ps.project_id=p.id and (p.end_date is null OR p.end_date > now())
+            inner join projects as p on ps.project_id=p.id
             #{category_join}
             inner join countries as c on cp.country_id=c.id and c.id=#{country.id}
           group by c.id,c.name,lon,lat) as subq"
@@ -117,7 +117,7 @@ class GeoregionController < ApplicationController
           select r.id,count(distinct(ps.project_id)) as count,r.name,r.center_lon as lon,r.center_lat as lat
           from (projects_regions as pr
             inner join projects_sites as ps on pr.project_id=ps.project_id and site_id=#{@site.id})
-            inner join projects as p on ps.project_id=p.id and (p.end_date is null OR p.end_date > now())
+            inner join projects as p on ps.project_id=p.id
             inner join regions as r on pr.region_id=r.id and r.id=#{@area.id} and r.level=#{@area.level}
             #{category_join}
           group by r.id,r.name,lon,lat) as subq"
@@ -127,7 +127,7 @@ class GeoregionController < ApplicationController
           select r.id,count(distinct(ps.project_id)) as count,r.name,r.center_lon as lon,r.center_lat as lat
           from (projects_regions as pr
             inner join projects_sites as ps on pr.project_id=ps.project_id and site_id=#{@site.id})
-            inner join projects as p on ps.project_id=p.id and (p.end_date is null OR p.end_date > now())
+            inner join projects as p on ps.project_id=p.id
             inner join regions as r on pr.region_id=r.id and r.parent_region_id=#{@area.id} and r.level=#{@area.level+1}
             #{category_join}
           group by r.id,r.name,lon,lat) as subq"

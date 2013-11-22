@@ -85,22 +85,22 @@ class ClustersSectorsController < ApplicationController
 
             # Get the data for the map depending on the region definition of the site (country or region)
             sql="select r.id,r.name,count(ps.*) as count,r.center_lon as lon,r.center_lat as lat,r.name,'#{carry_on_url}'||r.path as url,r.code,
-                (select count(*) from data_denormalization where regions_ids && ('{'||r.id||'}')::integer[] and (end_date is null OR end_date > now()) and site_id=#{@site.id}) as total_in_region
+                (select count(*) from data_denormalization where regions_ids && ('{'||r.id||'}')::integer[] and site_id=#{@site.id}) as total_in_region
             from regions as r
               inner join projects_regions as pr on r.id=pr.region_id and r.level=#{@site.level_for_region}
               inner join projects_sites as ps on pr.project_id=ps.project_id and ps.site_id=#{@site.id}
-              inner join projects as p on ps.project_id=p.id and (p.end_date is null OR p.end_date > now())
+              inner join projects as p on ps.project_id=p.id
               inner join clusters_projects as cp on cp.project_id=p.id and cp.cluster_id=#{params[:id].sanitize_sql!.to_i}
               #{location_filter}
               group by r.id,r.name,lon,lat,r.name,url,r.code"
           else
              location_filter = "where c.id = #{@filter_by_location.first}" if @filter_by_location
              sql="select c.id,c.name,count(ps.*) as count,c.center_lon as lon,c.center_lat as lat,c.name,'#{carry_on_url}'||c.id as url,
-                  (select count(*) from data_denormalization where countries_ids && ('{'||c.id||'}')::integer[] and (end_date is null OR end_date > now()) and site_id=#{@site.id}) as total_in_region
+                  (select count(*) from data_denormalization where countries_ids && ('{'||c.id||'}')::integer[]  and site_id=#{@site.id}) as total_in_region
               from countries as c
                 inner join countries_projects as cp on c.id=cp.country_id
                 inner join projects_sites as ps on cp.project_id=ps.project_id and ps.site_id=#{@site.id}
-                inner join projects as p on ps.project_id=p.id and (p.end_date is null OR p.end_date > now())
+                inner join projects as p on ps.project_id=p.id
                 inner join clusters_projects as cpr on cpr.project_id=p.id and cpr.cluster_id=#{params[:id].sanitize_sql!.to_i}
                 #{location_filter}
                 group by c.id,c.name,lon,lat,c.name,url"
@@ -118,11 +118,11 @@ class ClustersSectorsController < ApplicationController
                 '/projects/'||(array_to_string(array_agg(ps.project_id),''))
             END as url,
             r.code,
-                (select count(*) from data_denormalization where regions_ids && ('{'||r.id||'}')::integer[] and (end_date is null OR end_date > now()) and site_id=#{@site.id}) as total_in_region
+                (select count(*) from data_denormalization where regions_ids && ('{'||r.id||'}')::integer[]  and site_id=#{@site.id}) as total_in_region
             from regions as r
               inner join projects_regions as pr on r.id=pr.region_id and r.level=#{@site.level_for_region}
               inner join projects_sites as ps on pr.project_id=ps.project_id and ps.site_id=#{@site.id}
-              inner join projects as p on ps.project_id=p.id and (p.end_date is null OR p.end_date > now())
+              inner join projects as p on ps.project_id=p.id
               inner join projects_sectors as pse on pse.project_id=p.id and pse.sector_id=#{params[:id].sanitize_sql!.to_i}
               #{location_filter}
               group by r.id,r.name,lon,lat,r.path,r.code"
@@ -138,11 +138,11 @@ class ClustersSectorsController < ApplicationController
               ELSE
                   '/projects/'||(array_to_string(array_agg(ps.project_id),''))
               END as url,
-                  (select count(*) from data_denormalization where regions_ids && ('{'||r.id||'}')::integer[] and (end_date is null OR end_date > now()) and site_id=#{@site.id}) as total_in_region
+                  (select count(*) from data_denormalization where regions_ids && ('{'||r.id||'}')::integer[]  and site_id=#{@site.id}) as total_in_region
               from regions as r
                 inner join projects_regions as pr on r.id=pr.region_id
                 inner join projects_sites as ps on pr.project_id=ps.project_id and ps.site_id=#{@site.id}
-                inner join projects as p on ps.project_id=p.id and (p.end_date is null OR p.end_date > now())
+                inner join projects as p on ps.project_id=p.id
                 inner join projects_sectors as pse on pse.project_id=p.id and pse.sector_id=#{params[:id].sanitize_sql!.to_i}
                 where #{location_filter}
                 group by r.id,r.name,lon,lat,r.path"
@@ -154,11 +154,11 @@ class ClustersSectorsController < ApplicationController
               ELSE
                   '/projects/'||(array_to_string(array_agg(ps.project_id),''))
               END as url,
-                  (select count(*) from data_denormalization where countries_ids && ('{'||c.id||'}')::integer[] and (end_date is null OR end_date > now()) and site_id=#{@site.id}) as total_in_region
+                  (select count(*) from data_denormalization where countries_ids && ('{'||c.id||'}')::integer[] and site_id=#{@site.id}) as total_in_region
               from countries as c
                 inner join countries_projects as cp on c.id=cp.country_id
                 inner join projects_sites as ps on cp.project_id=ps.project_id and ps.site_id=#{@site.id}
-                inner join projects as p on ps.project_id=p.id and (p.end_date is null OR p.end_date > now())
+                inner join projects as p on ps.project_id=p.id
                 inner join projects_sectors as pse on pse.project_id=p.id and pse.sector_id=#{params[:id].sanitize_sql!.to_i}
                 group by c.id,c.name,lon,lat,c.name"
             end
