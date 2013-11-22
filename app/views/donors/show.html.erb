@@ -5,7 +5,7 @@
         <div class="outer_head">
           <div class="head">
             <h1><%= @donor.name.html_safe %></h1>
-            <p>Funding <%= pluralize(@donor.donated_projects_count(@site), 'project', 'projects') %></p>
+            <p>Financia <%= pluralize(@donor.donated_projects_count(@site), 'proyecto', 'proyectos') %></p>
           </div>
         </div>
         <div class="results_list" id="projects">
@@ -43,7 +43,7 @@
 
         <!-- CLUSTER -->
         <div class="block border statistics">
-          <h2>PROJECT <%= @site.word_for_cluster_sector %></h2>
+          <h2><%= @site.word_for_cluster_sector %></h2>
           <ul class="statistics_list">
             <% @donor.projects_sectors_or_clusters(@site)[0...3].each do |category,count| %>
               <li>
@@ -58,13 +58,13 @@
             <% end %>
           </ul>
           <% unless @donor.projects_sectors_or_clusters(@site).size < 4%>
-              <p class="other">and <%= pluralize(@donor.projects_sectors_or_clusters(@site).size - 3,"more #{@site.word_for_cluster_sector.singularize}", "more #{@site.word_for_cluster_sector.pluralize}") %></p>
+              <p class="other">y <%= pluralize(@donor.projects_sectors_or_clusters(@site).size - 3,"#{@site.word_for_cluster_sector.singularize} más", "#{@site.word_for_cluster_sector.pluralize} más") %></p>
           <% end %>
         </div>
 
         <!-- PROJECTS BY AREA -->
         <div class="block border statistics">
-          <h2>PROJECT LOCATIONS</h2>
+          <h2><%= @site.word_for_regions %></h2>
           <% if @site.navigate_by_country? %>
             <%= raw(projects_by_location(@site, @donor.projects_countries(@site))) %>
           <% else %>
