@@ -58,7 +58,7 @@
           <div class="block statistics">
             <h3><%= @site.word_for_cluster_sector.upcase %></h3>
             <ul class="statistics_list">
-              <% @organization_projects_clusters_sectors[0...3].each do |category,count| %>
+              <% @organization_projects_clusters_sectors.each do |category,count| %>
                 <li>
                   <div class="tooltip">
                     <span class="body_tooltip">
