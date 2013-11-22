@@ -42,7 +42,7 @@
         <div class="left" id="relative_content">
           <div class="outer_head">
             <div class="head">
-              <h1>Search projects</h1>
+              <h1>Buscar proyectos</h1>
               <%= text_field_tag :q, params[:q] %>
               <%= submit_tag 'Search' %>
             </div>
@@ -51,9 +51,9 @@
             <h3>
               <p>
                 <% if params[:q]!='' %>
-                  <%= pluralize(@total_projects, 'active project') %> for your search
+                  <%= pluralize(@total_projects, 'proyecto activo', 'proyectos activos') %> para tu búsqueda
                 <% else %>
-                  <%= pluralize(@total_projects, 'active project') %> for your search
+                  <%= pluralize(@total_projects, 'proyecto activo', 'proyectos activos') %> para tu búsqueda
                 <% end %>
               </p>
             </h3>
@@ -64,7 +64,7 @@
             <% else %>
               <ul>
                 <li class="even">
-                  <p class="no_results">No projects were found for '<%= params[:q] %>'</p>
+                  <p class="no_results">No se han encontrado proyectos para '<%= params[:q] %>'</p>
                 </li>
               </ul>
             <% end %>
@@ -81,7 +81,7 @@
                   </li>
                 <% end %>
               </ul>
-              <input type="text" id="autocomplete_regions" class="autocomplete" value="<%= @filtered_regions.any?? "Add a #{@site.word_for_regions.downcase.singularize}" : "All #{@site.word_for_regions.downcase}" %>" />
+              <input type="text" id="autocomplete_regions" class="autocomplete" value="<%= @filtered_regions.any?? "Añade una región" : "Todas las #{@site.word_for_regions.downcase}" %>" />
               <%= hidden_field_tag('regions_ids', @filtered_regions.map(&:id).join(','), :class => 'regions ids') %>
           </div>
 
@@ -95,7 +95,7 @@
                   </li>
                 <% end %>
               </ul>
-              <input type="text" id="autocomplete_clusters" class="autocomplete" value="<%= @filtered_clusters.any?? "Add a #{@site.word_for_clusters.singularize}" : "All #{@site.word_for_clusters}" %>" />
+              <input type="text" id="autocomplete_clusters" class="autocomplete" value="<%= @filtered_clusters.any?? "Añade un sector" : "Todos los #{@site.word_for_clusters}" %>" />
               <%= hidden_field_tag('clusters_ids', @filtered_clusters.map(&:id).join(','), :class => 'clusters ids') %>
             </div>
           <% else %>
@@ -108,13 +108,13 @@
                     </li>
                   <% end %>
                 </ul>
-                <input type="text" id="autocomplete_sectors" class="autocomplete" value="<%= @filtered_sectors.any?? "Add a #{@site.word_for_clusters.singularize}" : "All #{@site.word_for_clusters}" %>" />
+                <input type="text" id="autocomplete_sectors" class="autocomplete" value="<%= @filtered_sectors.any?? "Añade un sector" : "Todos los #{@site.word_for_clusters}" %>" />
                 <%= hidden_field_tag('sectors_ids', @filtered_sectors.map(&:id).join(','), :class => 'sectors ids') %>
             </div>
           <% end %>
 
           <div class="block organization">
-            <h2>Organization</h2>
+            <h2>Organizaciones</h2>
               <ul class="filter_list">
                 <% @filtered_organizations.each do |filtered_organization| %>
                   <li>
@@ -122,12 +122,12 @@
                   </li>
                 <% end %>
               </ul>
-              <input type="text" id="autocomplete_organizations" class="autocomplete" value="<%= @filtered_organizations.any?? "Add a organization" : "All organizations" %>" />
+              <input type="text" id="autocomplete_organizations" class="autocomplete" value="<%= @filtered_organizations.any?? "Añade una organización" : "Todas las organizaciones" %>" />
               <%= hidden_field_tag('organizations_ids', @filtered_organizations.map(&:id).join(','), :class => 'organizations ids') %>
           </div>
 
           <div class="block donor">
-            <h2>Donor</h2>
+            <h2>Financiadores</h2>
               <ul class="filter_list">
                 <% @filtered_donors.each do |filtered_donor| %>
                   <li>
@@ -135,18 +135,18 @@
                   </li>
                 <% end %>
               </ul>
-              <input type="text" id="autocomplete_donors" class="autocomplete" value="<%= @filtered_donors.any?? "Add a donor" : "All donors" %>" />
+              <input type="text" id="autocomplete_donors" class="autocomplete" value="<%= @filtered_donors.any?? "Añade un financiador" : "Todos los financiadores" %>" />
               <%= hidden_field_tag('donors_ids', @filtered_donors.map(&:id).join(','), :class => 'donors ids') %>
           </div>
 
           <div class="block">
-            <h2>Starting after <%= link_to 'Clear', '#', :class => 'clear_date start_date' if @start_date %></h2>
+            <h2>Desde <%= link_to 'Clear', '#', :class => 'clear_date start_date' if @start_date %></h2>
               <%= select_year @start_date, :field_name => 'start_year', :prompt => 'Year', :start_year => 1980, :end_year => 2030 %>
               <%= select_month @start_date, :field_name => 'start_month', :prompt => 'Month' %>
           </div>
 
           <div class="block">
-            <h2>Ending before <%= link_to 'Clear', '#', :class => 'clear_date end_date' if @end_date %></h2>
+            <h2>Hasta <%= link_to 'Clear', '#', :class => 'clear_date end_date' if @end_date %></h2>
               <%= select_year @end_date, :field_name => 'end_year', :prompt => 'Year', :start_year => 1980, :end_year => 2030 %>
               <%= select_month @end_date, :field_name => 'end_month', :prompt => 'Month' %>
           </div>
