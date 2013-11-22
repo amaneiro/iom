@@ -2,10 +2,10 @@
   <div class="main_head">
     <div class="inner_main_head">
       <div class="left">
-        <h2 class="organization_name">Organization</h2>
+        <h2 class="organization_name">Organización</h2>
         <h1><%= @organization.name %></h1>
         <div class="float_head">
-          <h2 class="organization_name">Organization</h2>
+          <h2 class="organization_name">Organización</h2>
           <h1><%= @organization.name %></h1>
         </div>
         <%= link_to raw(@filter_name + image_tag('sites/icons/carry_on_filter_remove.png')) , organization_path(@organization), :class => 'filter' if @filter_name.present? %>
@@ -47,16 +47,16 @@
 
           <% if @organization.budget(@site) > 0 %>
             <div class="block">
-              <h3>Funding raised</h3>
+              <h3>Financiación</h3>
               <p class="budget"><%= number_with_precision(@organization.budget(@site), :precision => 0, :delimiter => ',') %></p>
-              <h3 class="secondary">FUNDING SOURCES</h3>
+              <h3 class="secondary">Fuentes de financiación</h3>
               <p><%= funding_percentages(@organization, @site) %></p>
             </div>
           <% end %>
 
           <% unless @site.nil? || @filter_by_category.present? || @organization_projects_clusters_sectors.empty? %>
           <div class="block statistics">
-            <h3>PROJECT <%= @site.word_for_cluster_sector.upcase %></h3>
+            <h3><%= @site.word_for_cluster_sector.upcase %></h3>
             <ul class="statistics_list">
               <% @organization_projects_clusters_sectors[0...3].each do |category,count| %>
                 <li>
@@ -75,14 +75,14 @@
 
           <% unless @filter_by_location.present? || @organization_projects_by_location.empty? %>
           <div class="block statistics less">
-            <h3>PROJECT LOCATIONS</h3>
+            <h3><%= @site.word_for_regions.upcase %></h3>
             <%= raw(projects_by_location(@site, @organization_projects_by_location)) %>
           </div>
           <% end %>
 
           <% unless @organization.resources_for_site(@site).empty? %>
           <div class="block resources">
-            <h3>ADDITIONAL RESOURCES</h3>
+            <h3>RECURSOS ADICIONALES</h3>
 
             <% @organization.resources_for_site(@site).each do |resource| %>
               <ul>
@@ -93,14 +93,14 @@
           <% end %>
           <%unless @organization.contact_name.nil? &&  @organization.contact_position.nil? && @organization.hq_address.nil? && @organization.contact_zip.nil? && @organization.contact_phone_number.nil? %>
           <div class="block">
-            <h3>CONTACT INFORMATION</h3>
+            <h3>INFORMACIÓN DE CONTACTO</h3>
             <p><strong><%= @organization.contact_name %></strong><br/><%= @organization.contact_position %></p>
             <p><%= @organization.contact_phone_number %><br/><% unless (@organization.contact_email.nil?)||(@organization.contact_email.empty?) %><%= link_to(@organization.contact_email, "mailto:#{@organization.contact_email}") %><%end%></p>
           </div>
           <%end%>
           <% if donation_information?(@organization) %>
           <div class="block green">
-            <h3>DONATION INFORMATION</h3>
+            <h3>INFORMACIÓN DE DONACIONES</h3>
             <% if donation_address?(@organization) %>
             <p>
               <%= @organization.donation_address %>
@@ -166,16 +166,16 @@
             <li>|</li>
             <li><%= link_to 'KML', organization_path(@organization, @carry_on_filters.merge(:format => :kml)) %></li>
             <li>·</li>
-            <li><%= link_to 'Embed this map', '#', :id => 'embed_map' %></li>
+            <li><%= link_to 'Copiar este mapa', '#', :id => 'embed_map' %></li>
           </ul>
         </h3>
 
         <div id="popup" class="embed_map">
           <a class="close top" href="#"></a>
-          <h5>Embed this map</h5>
-          <p>Copy this code and paste it in your HTML page for embedding the map.</p>
+          <h5>Copia este mapa</h5>
+          <p>Copia este código y pégale en tu página HTML.</p>
           <textarea><iframe src="<%= url_with_embed_param %>" frameborder="0" width="600" height="600"></iframe></textarea>
-          <a href="#" class="close button">Close</a>
+          <a href="#" class="close button">Cerrar</a>
         </div>
         <div class="popup_background"></div>
 
