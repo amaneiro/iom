@@ -59,7 +59,7 @@
 
       <div class="block global_budget">
         <label>PRESUPUESTO</label>
-        <h2><%= number_with_precision(@site.total_budget, :precision => 0, :delimiter => '.') %> €</h2>
+        <h2><%= number_with_precision(@site.total_budget, :precision => 0, :delimiter => '.') %>€</h2>
       </div>
 
       <% cache("#{@site.id}/home/projects_by_cluster_sector") do %>
