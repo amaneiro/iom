@@ -9,10 +9,10 @@
       </div>
 
       <% if @site.partners.present? %>
-        <div class="fund">          
+        <div class="fund">
           <div class="fund_logo"><%= link_to image_tag(@site.partners.first.logo.url(:original)), @site.partners.first.url, :target => '_blank' %></div>
           <p class="fund_label"><%= @site.partners.first.label %></p>
-        </div>        
+        </div>
       <% end -%>
 
 
@@ -85,7 +85,7 @@
 
       <% cache("#{@site.id}/home/projects_by_location") do %>
       <div class="block statistics less">
-        <h3>LOCALIZACIONES</h3>
+        <h3><%= @site.word_for_regions.upcase %></h3>
         <%= raw(projects_by_location(@site)) %>
       </div>
       <% end %>
