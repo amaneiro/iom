@@ -70,7 +70,7 @@
 
         <% if @filter_by_category.blank? && @area.projects_clusters_sectors(@site).size > 0 %>
         <div class="block statistics">
-          <h3>PROJECT <%= @site.word_for_cluster_sector.upcase %></h3>
+          <h3><%= @site.word_for_cluster_sector.upcase %></h3>
 
             <ul class="statistics_list">
               <% @area.projects_clusters_sectors(@site)[0..3].each do |category,count| %>
@@ -90,7 +90,7 @@
         <% end %>
         <% donors = @area.donors(@site) %>
         <div class="block">
-          <h3>DONORS IN THIS <%= word_for_geo_context(@area) %></h3>
+          <h3>ALGUNOS DONANTES</h3>
           <% unless donors.empty? %>
             <ul id="donors_list">
               <% index = 1 %>
@@ -100,20 +100,20 @@
               <% end %>
             </ul>
             <% if index > 11 %>
-              <a id="show_donor_list">See more donors</a>
+              <a id="show_donor_list">Ver más donantes</a>
             <% end %>
           <% else %>
-            <p>The are no donors</p>
+            <p>No hay donantes</p>
           <% end %>
         </div>
 
         <div class="block margin">
-          <h3>PROJECTS IN OTHER <%= word_for_geo_context(@area).pluralize %></h3>
+          <h3>PROYECTOS EN OTRAS <%= word_for_geo_context(@area).pluralize %></h3>
           <ul>
             <% @area.near(@site, 5).each do |area| %>
             <li>
               <%= link_to(area.name, location_path(area)) %>
-              - <%= pluralize(area.count, 'project', 'projects') %></li>
+              - <%= pluralize(area.count, 'proyecto', 'proyectos') %></li>
             <% end %>
           </ul>
         </div>
@@ -134,16 +134,16 @@
         <li>|</li>
         <li><%= link_to 'KML', location_path(@area, @carry_on_filters.merge(:format => :kml)) %></li>
         <li>·</li>
-        <li><%= link_to 'Embed this map', '#', :id => 'embed_map' %></li>
+        <li><%= link_to 'Copia este mapa', '#', :id => 'embed_map' %></li>
       </ul>
     </h3>
 
     <div id="popup" class="embed_map">
       <a class="close top" href="#"></a>
-      <h5>Embed this map</h5>
-      <p>Copy this code and paste it in your HTML page for embedding the map.</p>
+      <h5>Copia este mapa</h5>
+      <p>Copia este código y pégale en tu página HTML.</p>
       <textarea><iframe src="<%= url_with_embed_param %>" frameborder="0" width="600" height="600"></iframe></textarea>
-      <a href="#" class="close button">Close</a>
+      <a href="#" class="close button">Cerrar</a>
     </div>
     <div class="popup_background"></div>
 
