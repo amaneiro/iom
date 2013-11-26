@@ -10,7 +10,28 @@ namespace :dc do
     task :load => %w(dc:data:load_adm_world dc:data:load_adm_bolivia dc:data:load_sectors dc:data:load_organizations dc:data:load_donors dc:data:load_projects dc:data:load_donations dc:data:load_settings)
 
     desc 'Load countries and 1st administrative level for the whole world'
-    task :load_adm_world => %w(iom:data:load_countries iom:data:load_adm_levels)
+    task :load_adm_world => %w(dc:data:load_countries iom:data:load_adm_levels)
+
+    desc "load country data"
+    task :load_countries => :environment do
+      DB = ActiveRecord::Base.connection
+      db_name = Rails.configuration.database_configuration[Rails.env]["database"]
+      # system("unzip -o #{Rails.root}/db/data/countries/TM_WORLD_BORDERS-0.3.zip -d #{Rails.root}/db/data/countries/")
+      # system("shp2pgsql -d -s 4326 -gthe_geom -i -WLATIN1 #{Rails.root}/db/data/countries/TM_WORLD_BORDERS-0.3.shp public.tmp_countries | psql -Upostgres -d#{db_name}")
+      system("cat #{Rails.root}/db/data/countries/TM_WORLD_BORDERS-0.3.sql | psql -Upostgres -d#{db_name}")
+
+      #Insert the country and get the value
+      sql="INSERT INTO countries(\"name\",code,center_lat,center_lon,iso2_code,iso3_code)
+      SELECT name,iso3,y(ST_Centroid(the_geom)),x(ST_Centroid(the_geom)),iso2,iso3 from tmp_countries
+      where iso3 not in (select code from countries)"
+      DB.execute sql
+
+      #DB.execute "UPDATE countries SET center_lat=y(ST_Centroid(the_geom)),center_lon=x(ST_Centroid(the_geom))"
+      #DB.execute "UPDATE countries SET the_geom_geojson=ST_AsGeoJSON(the_geom,6)"
+
+      DB.execute 'DROP TABLE tmp_countries'
+      # system("rm -rf #{Rails.root}/db/data/countries/TM_WORLD_BORDERS-0.3.shp #{Rails.root}/db/data/countries/TM_WORLD_BORDERS-0.3.shx #{Rails.root}/db/data/countries/TM_WORLD_BORDERS-0.3.dbf #{Rails.root}/db/data/countries/TM_WORLD_BORDERS-0.3.prj #{Rails.root}/db/data/countries/Readme.txt")
+    end
 
     desc 'Load Bolivia administrative boundaries'
     task :load_adm_bolivia => :environment do
