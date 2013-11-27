@@ -18,7 +18,7 @@ namespace :dc do
       db_name = Rails.configuration.database_configuration[Rails.env]["database"]
       # system("unzip -o #{Rails.root}/db/data/countries/TM_WORLD_BORDERS-0.3.zip -d #{Rails.root}/db/data/countries/")
       # system("shp2pgsql -d -s 4326 -gthe_geom -i -WLATIN1 #{Rails.root}/db/data/countries/TM_WORLD_BORDERS-0.3.shp public.tmp_countries | psql -Upostgres -d#{db_name}")
-      system("cat #{Rails.root}/db/data/countries/TM_WORLD_BORDERS-0.3.sql | psql -Upostgres -d#{db_name}")
+      system("cat #{Rails.root}/db/data/countries/TM_WORLD_BORDERS-0.3.sql | psql -d#{db_name}")
 
       #Insert the country and get the value
       sql="INSERT INTO countries(\"name\",code,center_lat,center_lon,iso2_code,iso3_code)
