@@ -6,7 +6,7 @@ development:
   port: <%= ENV["OPENSHIFT_POSTGRESQL_DB_PORT"] %>
   database: donde_cooperamos
   username: <%= ENV["OPENSHIFT_POSTGRESQL_DB_USERNAME"] %>
-  password:
+  password: <%= ENV["OPENSHIFT_POSTGRESQL_DB_PASSWORD"] %>
 
 test:
   adapter: postgresql
@@ -14,7 +14,7 @@ test:
   encoding: unicode
   database: donde_cooperamos
   username: <%= ENV["OPENSHIFT_POSTGRESQL_DB_USERNAME"] %>
-  password:
+  password: <%= ENV["OPENSHIFT_POSTGRESQL_DB_PASSWORD"] %>
 
 staging:
   adapter: postgresql
@@ -22,7 +22,7 @@ staging:
   encoding: unicode
   database: donde_cooperamos
   username: <%= ENV["OPENSHIFT_POSTGRESQL_DB_USERNAME"] %>
-  password:
+  password: <%= ENV["OPENSHIFT_POSTGRESQL_DB_PASSWORD"] %>
 
 production:
   adapter: postgresql
@@ -30,4 +30,4 @@ production:
   encoding: unicode
   database: donde_cooperamos
   username: <%= ENV["OPENSHIFT_POSTGRESQL_DB_USERNAME"] %>
-  password:
+  password: <%= ENV["OPENSHIFT_POSTGRESQL_DB_PASSWORD"] %>
