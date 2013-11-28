@@ -12,6 +12,8 @@ test:
   adapter: postgresql
   template: template_postgis
   encoding: unicode
+  host: <%= ENV["OPENSHIFT_POSTGRESQL_DB_HOST"] %>
+  port: <%= ENV["OPENSHIFT_POSTGRESQL_DB_PORT"] %>
   database: donde_cooperamos
   username: <%= ENV["OPENSHIFT_POSTGRESQL_DB_USERNAME"] %>
   password: <%= ENV["OPENSHIFT_POSTGRESQL_DB_PASSWORD"] %>
@@ -20,6 +22,8 @@ staging:
   adapter: postgresql
   template: template_postgis
   encoding: unicode
+  host: <%= ENV["OPENSHIFT_POSTGRESQL_DB_HOST"] %>
+  port: <%= ENV["OPENSHIFT_POSTGRESQL_DB_PORT"] %>
   database: donde_cooperamos
   username: <%= ENV["OPENSHIFT_POSTGRESQL_DB_USERNAME"] %>
   password: <%= ENV["OPENSHIFT_POSTGRESQL_DB_PASSWORD"] %>
@@ -28,6 +32,8 @@ production:
   adapter: postgresql
   template: template_postgis
   encoding: unicode
+  host: <%= ENV["OPENSHIFT_POSTGRESQL_DB_HOST"] %>
+  port: <%= ENV["OPENSHIFT_POSTGRESQL_DB_PORT"] %>
   database: donde_cooperamos
   username: <%= ENV["OPENSHIFT_POSTGRESQL_DB_USERNAME"] %>
   password: <%= ENV["OPENSHIFT_POSTGRESQL_DB_PASSWORD"] %>
