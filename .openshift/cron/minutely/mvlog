@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# to avoid the log growing infinitely, we save the last day log only
+# see https://github.com/iCarto/donde-cooperamos/issues/7
+mv ${OPENSHIFT_REPO_DIR}log/production.log ${OPENSHIFT_REPO_DIR}log/yesterday.log
